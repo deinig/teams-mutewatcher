@@ -1,10 +1,4 @@
-# TeamsMuteWatcher.ps1 (v1.8, PS 5.1 kompatibel)
-# LED an = Teams muted, LED aus = Teams unmuted (UIAutomation, titelbasiert, deutsche Tooltip-/Textregeln)
-
-# Call
-# powershell.exe -ExecutionPolicy Bypass -File "C:\DEV\Tools\TeamsMuteWatcher.ps1" `
-#  -WebhookMuteOn  "http://192.168.1.12/relay/0?turn=off" `
-#  -WebhookMuteOff "http://192.168.1.12/relay/0?turn=on" 
+# TeamsMuteWatcher.ps1
 
 [CmdletBinding()]
 param(
