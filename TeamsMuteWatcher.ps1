@@ -17,7 +17,9 @@ param(
   [int][ValidateRange(1,10)]$MaxRetries = 3,
   [string]$LogFile = "",
   [switch]$DebugWindows,     # listet Top-Level-Fenster
-  [switch]$DebugCandidates   # loggt den zuerst passenden Button (Name/HelpText/Quelle)
+  [switch]$DebugCandidates,   # loggt den zuerst passenden Button (Name/HelpText/Quelle)
+  [string]$WebHookTeamsWindowDetected,
+  [string]$WebHookNoTeamsWindowDetected
 )
 
 function Write-Log { param([string]$msg,[string]$level="INFO")
@@ -183,6 +185,7 @@ Write-Log "MUTE-OFF -> $WebhookMuteOff"
 $stateMuted     = $false
 $lastRaw        = $null
 $lastChangeTime = Get-Date
+$lastTeamsWindowState = $null  # Track the last state of Teams window detection
 
 $raw = Get-TeamsMuteToggleState
 $lastRaw = $raw
@@ -234,6 +237,26 @@ while ($true) {
           Write-Log "MUTE=ON Webhook failed (No Teams window)" "ERROR"
         }
       }
+
+      # Trigger WebHookNoTeamsWindowDetected only if the state has changed
+      if ($WebHookNoTeamsWindowDetected -and $lastTeamsWindowState -ne $false) {
+        if (Invoke-WebhookGet -Url $WebHookNoTeamsWindowDetected) {
+          Write-Log "WebHookNoTeamsWindowDetected triggered successfully." "INFO"
+        } else {
+          Write-Log "WebHookNoTeamsWindowDetected failed." "ERROR"
+        }
+      }
+      $lastTeamsWindowState = $false
+    }
+
+    # Trigger WebHookTeamsWindowDetected if a Teams window is found and the state has changed
+    if ($raw -is [bool] -and $WebHookTeamsWindowDetected -and $lastTeamsWindowState -ne $true) {
+      if (Invoke-WebhookGet -Url $WebHookTeamsWindowDetected) {
+        Write-Log "WebHookTeamsWindowDetected triggered successfully." "INFO"
+      } else {
+        Write-Log "WebHookTeamsWindowDetected failed." "ERROR"
+      }
+      $lastTeamsWindowState = $true
     }
   } catch {
     Write-Log "Loop-Fehler: $($_.Exception.Message)" "WARN"
