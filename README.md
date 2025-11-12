@@ -1,11 +1,18 @@
 # TeamsMuteWatcher
 
-TeamsMuteWatcher is a PowerShell script that monitors the mute state of Microsoft Teams and triggers webhooks based on the mute status or the presence of a Teams window. It is designed to integrate with external systems, such as IoT devices, to provide visual or auditory feedback on the mute state.
+TeamsMuteWatcher is a PowerShell script that monitors the mute state of Microsoft Teams and triggers webhooks based on:
 
-It is used to control Shelly Powerplugs to switch on light indicators to show my Family, if I am in a meeting or not (Teams Window detected). This is an alternative BusyLight based on Shelly Plugs.
-I also use it to switch an On-Air-Light on my desk, based on the mute state in teams.
+- The current microphone mute state
+- The presence of an active Teams window (i.e. “in a meeting”)
 
-The script and this readme is completeley created by AI (github Copilot).
+It is designed to integrate with external systems (e.g. IoT devices, Shelly plugs, custom lights) to provide visual or acoustic feedback for your meeting status.
+
+Typical use cases:
+
+- Control Shelly power plugs to switch on/off status lights so your family can see whether you are in a meeting (Teams window detected).
+- Drive an “On Air” light on your desk based on the mute state in Teams.
+
+> Note: The original version of this script and README was generated with GitHub Copilot and then refined manually.
 
 ## Features
 - Detects the mute state of Microsoft Teams.
