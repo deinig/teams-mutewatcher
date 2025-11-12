@@ -65,8 +65,8 @@ powershell.exe -ExecutionPolicy Bypass -File "C:\Path\To\TeamsMuteWatcher.ps1" `
 powershell.exe -ExecutionPolicy Bypass -File "C:\DEV\Tools\TeamsMuteWatcher.ps1" `
   -WebhookMuteOn "http://192.168.1.12/relay/0?turn=off" `
   -WebhookMuteOff "http://192.168.1.12/relay/0?turn=on" `
-  -WebHookTeamsWindowDetected "http://192.168.1.12/relay/0?teams=detected" `
-  -WebHookNoTeamsWindowDetected "http://192.168.1.12/relay/0?teams=not_detected" `
+  -WebHookTeamsWindowDetected "http://192.168.1.12/relay/0?turn=on" `
+  -WebHookNoTeamsWindowDetected "http://192.168.1.12/relay/0?turn=off" `
   -PollIntervalMs 300 `
   -MuteDebounceMs 150 `
   -UnmuteDebounceMs 150
